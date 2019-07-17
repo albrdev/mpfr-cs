@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpfr-cs", "mpfr-cs\mpfr-cs.csproj", "{18730017-85A3-4BC1-8C1C-9BB95E5C69B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mpfr-cs", "mpfr-cs", "{52269884-5B76-46F2-BB30-8A1B349AF65A}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18730017-85A3-4BC1-8C1C-9BB95E5C69B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18730017-85A3-4BC1-8C1C-9BB95E5C69B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18730017-85A3-4BC1-8C1C-9BB95E5C69B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18730017-85A3-4BC1-8C1C-9BB95E5C69B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{18730017-85A3-4BC1-8C1C-9BB95E5C69B4} = {52269884-5B76-46F2-BB30-8A1B349AF65A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {199925CC-456A-44DD-A346-4E2F68E96D35}
+	EndGlobalSection
+EndGlobal
