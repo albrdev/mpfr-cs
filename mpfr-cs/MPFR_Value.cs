@@ -71,43 +71,6 @@ namespace Math.Mpfr.Native
             return ToString(MPFR_Value.RoundingMode, MPFR_Value.OutputPrecision);
         }
 
-        /*public override string ToString()
-        {
-            return ToString(10);
-        }
-
-        public string ToString(int radix, uint digitCount = 0)
-        {
-            if(mpfr_lib.mpfr_zero_p(m_Value) != 0)
-                return "0";
-            else if(mpfr_lib.mpfr_inf_p(m_Value) != 0)
-                return IsNegative ? "-Inf" : "Inf";
-            else if(mpfr_lib.mpfr_nan_p(m_Value) != 0)
-                return "NaN";
-
-            mpfr_exp_t exp = 0;
-            var res = mpfr_lib.mpfr_get_str(char_ptr.Zero, ref exp, radix, digitCount, m_Value, MPFR_Value.RoundingMode);
-            string result = res.ToString();
-
-            gmp_lib.free(res);
-            if(exp > 0)
-            {
-                if(exp > result.Length)
-                {
-                    result += new string('0', exp - result.Length);
-                }
-
-                result = result.Insert(IsNegative ? exp + 1 : (int)exp, ".");
-            }
-            else
-            {
-                result = result.Insert(IsNegative ? 1 : 0, new string('0', System.Math.Abs(exp) + 1));
-                result = result.Insert(IsNegative ? 2 : 1, ".");
-            }
-
-            return result.TrimEnd('0').TrimEnd('.');
-        }*/
-
         public static MPFR_Value MPFR_Pi(mpfr_prec_t precision)
         {
             MPFR_Value result = new MPFR_Value(precision);
