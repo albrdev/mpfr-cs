@@ -5,7 +5,7 @@ namespace Math.Mpfr.Native
 {
     public sealed partial class MPFR_Value : IDisposable
     {
-        private static int m_DigitOutputCount = -1;
+        private static int m_OutputPrecision = -1;
 
         private readonly mpfr_t m_Value = new mpfr_t();
         private bool m_IsDisposed = false;
@@ -23,10 +23,10 @@ namespace Math.Mpfr.Native
 
         public static mpfr_rnd_t RoundingMode { get; set; } = default;
 
-        public static int DigitOutputCount
+        public static int OutputPrecision
         {
-            get => m_DigitOutputCount >= 0 ? m_DigitOutputCount : (int)System.Math.Ceiling((uint)DefaultPrecision * System.Math.Log10(2));
-            set => m_DigitOutputCount = value;
+            get => m_OutputPrecision >= 0 ? m_OutputPrecision : (int)System.Math.Ceiling((uint)DefaultPrecision * System.Math.Log10(2));
+            set => m_OutputPrecision = value;
         }
 
         public static GMP_RandState RandomState { get; set; } = new GMP_RandState(Environment.TickCount);
@@ -55,11 +55,11 @@ namespace Math.Mpfr.Native
         public bool IsNegativeInfinity => IsInfinity && IsNegative;
         public bool IsPositiveInfinity => IsInfinity && IsPositive;
 
-        public string ToString(mpfr_rnd_t roundingMode, int digitDisplayCount)
+        public string ToString(mpfr_rnd_t roundingMode, int outputPrecision)
         {
             ptr<char_ptr> buffer = new ptr<char_ptr>();
 
-            mpfr_lib.mpfr_asprintf(buffer, "%.*R*g", digitDisplayCount, roundingMode, m_Value);
+            mpfr_lib.mpfr_asprintf(buffer, "%.*R*g", outputPrecision, roundingMode, m_Value);
             string result = buffer.Value.ToString();
 
             gmp_lib.free(buffer.Value);
@@ -68,7 +68,7 @@ namespace Math.Mpfr.Native
 
         public override string ToString()
         {
-            return ToString(MPFR_Value.RoundingMode, MPFR_Value.DigitOutputCount);
+            return ToString(MPFR_Value.RoundingMode, MPFR_Value.OutputPrecision);
         }
 
         /*public override string ToString()
