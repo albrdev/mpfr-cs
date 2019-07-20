@@ -25,12 +25,6 @@ namespace Math.Gmp.Native
 
         public override string ToString()
         {
-            /*ptr<char_ptr> buffer = new ptr<char_ptr>();
-
-            gmp_lib.gmp_asprintf(buffer, "%Zd", m_Value);
-            string result = buffer.Value.ToString();
-
-            gmp_lib.free(buffer.Value);*/
             return ToString(OutputBase);
         }
 
