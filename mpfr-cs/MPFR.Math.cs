@@ -86,6 +86,13 @@ namespace Math.Mpfr.Native
             return result;
         }
 
+        public static MPFR Cb(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_pow_ui(result.m_Value, value.m_Value, 3U, MPFR.RoundingMode);
+            return result;
+        }
+
         public static MPFR Root(MPFR a, MPFR b)
         {
             MPFR result = new MPFR();
