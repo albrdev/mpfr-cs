@@ -7,6 +7,8 @@ namespace Math.Gmp.Native
         private mpz_t m_Value = new mpz_t();
         private bool m_IsDisposed = false;
 
+        public static int OutputBase { get; set; } = 10;
+
         public static MPZ Zero { get; } = new MPZ(0);
         public static MPZ NegativeOne { get; } = new MPZ(-1);
         public static MPZ PositiveOne { get; } = new MPZ(1);
@@ -29,7 +31,7 @@ namespace Math.Gmp.Native
             string result = buffer.Value.ToString();
 
             gmp_lib.free(buffer.Value);*/
-            return ToString(10);
+            return ToString(OutputBase);
         }
 
         public MPZ(MPZ other) : this(other.m_Value) { }
