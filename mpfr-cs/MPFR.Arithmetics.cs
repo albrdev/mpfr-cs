@@ -50,7 +50,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator +(mpfr_t lhs, MPFR rhs)
         {
-            return rhs + lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_add(result.m_Value, lhs, rhs.m_Value, MPFR.RoundingMode);
+            return result;
         }
 
         public static MPFR operator +(MPFR lhs, double rhs)
@@ -62,7 +64,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator +(double lhs, MPFR rhs)
         {
-            return rhs + lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_add_d(result.m_Value, rhs.m_Value, lhs, MPFR.RoundingMode);
+            return result;
         }
 
         public static MPFR operator +(MPFR lhs, int rhs)
@@ -74,7 +78,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator +(int lhs, MPFR rhs)
         {
-            return rhs + lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_add_si(result.m_Value, rhs.m_Value, lhs, MPFR.RoundingMode);
+            return result;
         }
 
         public static MPFR operator +(MPFR lhs, uint rhs)
@@ -86,7 +92,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator +(uint lhs, MPFR rhs)
         {
-            return rhs + lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_add_ui(result.m_Value, rhs.m_Value, lhs, MPFR.RoundingMode);
+            return result;
         }
         #endregion
 
@@ -172,7 +180,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator *(mpfr_t lhs, MPFR rhs)
         {
-            return rhs * lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_mul(result.m_Value, lhs, rhs.m_Value, MPFR.RoundingMode);
+            return result;
         }
 
         public static MPFR operator *(MPFR lhs, double rhs)
@@ -184,7 +194,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator *(double lhs, MPFR rhs)
         {
-            return rhs * lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_mul_d(result.m_Value, rhs.m_Value, lhs, MPFR.RoundingMode);
+            return result;
         }
 
         public static MPFR operator *(MPFR lhs, int rhs)
@@ -196,7 +208,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator *(int lhs, MPFR rhs)
         {
-            return rhs * lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_mul_si(result.m_Value, rhs.m_Value, lhs, MPFR.RoundingMode);
+            return result;
         }
 
         public static MPFR operator *(MPFR lhs, uint rhs)
@@ -208,7 +222,9 @@ namespace Math.Mpfr.Native
 
         public static MPFR operator *(uint lhs, MPFR rhs)
         {
-            return rhs * lhs;
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_mul_ui(result.m_Value, rhs.m_Value, lhs, MPFR.RoundingMode);
+            return result;
         }
         #endregion
 

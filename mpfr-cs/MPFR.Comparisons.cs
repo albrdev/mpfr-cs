@@ -90,14 +90,14 @@ namespace Math.Mpfr.Native
         #region Binary operators
         #region ==, !=
         public static bool operator ==(MPFR lhs, MPFR rhs) => MPFR.Equals(lhs, rhs);
-        public static bool operator ==(MPFR lhs, mpfr_t rhs) => !(lhs is null) && lhs.CompareTo(rhs) == 0;
-        public static bool operator ==(mpfr_t lhs, MPFR rhs) => rhs == lhs;
+        public static bool operator ==(MPFR lhs, mpfr_t rhs) => !(lhs is null || rhs is null) && lhs.CompareTo(rhs) == 0;
+        public static bool operator ==(mpfr_t lhs, MPFR rhs) => !(lhs is null || rhs is null) && rhs.CompareTo(lhs) == 0;
         public static bool operator ==(MPFR lhs, double rhs) => !(lhs is null) && lhs.CompareTo(rhs) == 0;
-        public static bool operator ==(double lhs, MPFR rhs) => rhs == lhs;
+        public static bool operator ==(double lhs, MPFR rhs) => !(rhs is null) && rhs.CompareTo(lhs) == 0;
         public static bool operator ==(MPFR lhs, int rhs) => !(lhs is null) && lhs.CompareTo(rhs) == 0;
-        public static bool operator ==(int lhs, MPFR rhs) => rhs == lhs;
+        public static bool operator ==(int lhs, MPFR rhs) => !(rhs is null) && rhs.CompareTo(lhs) == 0;
         public static bool operator ==(MPFR lhs, uint rhs) => !(lhs is null) && lhs.CompareTo(rhs) == 0;
-        public static bool operator ==(uint lhs, MPFR rhs) => rhs == lhs;
+        public static bool operator ==(uint lhs, MPFR rhs) => !(rhs is null) && rhs.CompareTo(lhs) == 0;
 
         public static bool operator !=(MPFR lhs, MPFR rhs) => !MPFR.Equals(lhs, rhs);
         public static bool operator !=(MPFR lhs, mpfr_t rhs) => !(lhs == rhs);

@@ -10,8 +10,6 @@ namespace Math.Mpfr.Native
         private readonly mpfr_t m_Value = new mpfr_t();
         private bool m_IsDisposed = false;
 
-        private bool BoolValue { get => mpfr_lib.mpfr_regular_p(m_Value) != 0 || mpfr_lib.mpfr_inf_p(m_Value) != 0; }
-
         public static mpfr_prec_t MinPrecision { get { return mpfr_lib.MPFR_PREC_MIN; } }
         public static mpfr_prec_t MaxPrecision { get { return mpfr_lib.MPFR_PREC_MAX; } }
 
@@ -48,6 +46,8 @@ namespace Math.Mpfr.Native
         public static MPFR Euler { get; } = MPFR_Euler(MPFR.DefaultPrecision);
         public static MPFR Catalan { get; } = MPFR_Catalan(MPFR.DefaultPrecision);
         public static MPFR LN2 { get; } = MPFR_LN2(MPFR.DefaultPrecision);
+
+        private bool BoolValue { get => mpfr_lib.mpfr_regular_p(m_Value) != 0 || mpfr_lib.mpfr_inf_p(m_Value) != 0; }
 
         public bool IsNegative => mpfr_lib.mpfr_sgn(m_Value) < 0;
         public bool IsPositive => mpfr_lib.mpfr_sgn(m_Value) > 0;
