@@ -25,6 +25,14 @@ namespace Math.Mpfr.Native
             return result;
         }
 
+        public static MPFR Neg2(MPFR value)
+        {
+            if(value <= 0)
+                return new MPFR(value);
+
+            return Neg(value);
+        }
+
         public static MPFR Min(params MPFR[] values)
         {
             if(values.Length == 0)
