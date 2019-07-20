@@ -2,31 +2,31 @@
 
 namespace Math.Mpfr.Native
 {
-    public sealed partial class MPFR_Value : IConvertible
+    public sealed partial class MPFR : IConvertible
     {
         #region To MPFR_Value
-        public static explicit operator MPFR_Value(mpfr_t value) => new MPFR_Value(value);
-        public static implicit operator MPFR_Value(int value) => new MPFR_Value(value);
-        public static implicit operator MPFR_Value(uint value) => new MPFR_Value(value);
-        public static implicit operator MPFR_Value(double value) => new MPFR_Value(value);
-        public static implicit operator MPFR_Value(string value) => new MPFR_Value(value);
+        public static explicit operator MPFR(mpfr_t value) => new MPFR(value);
+        public static implicit operator MPFR(int value) => new MPFR(value);
+        public static implicit operator MPFR(uint value) => new MPFR(value);
+        public static implicit operator MPFR(double value) => new MPFR(value);
+        public static implicit operator MPFR(string value) => new MPFR(value);
         #endregion
 
         #region From MPFR_Value
-        public static implicit operator mpfr_t(MPFR_Value value)
+        public static implicit operator mpfr_t(MPFR value)
         {
             mpfr_t result = new mpfr_t();
-            mpfr_lib.mpfr_init_set(result, value.m_Value, MPFR_Value.RoundingMode);
+            mpfr_lib.mpfr_init_set(result, value.m_Value, MPFR.RoundingMode);
             return result;
         }
 
-        public static implicit operator bool(MPFR_Value obj) => obj.BoolValue;
-        public static implicit operator int(MPFR_Value value) => mpfr_lib.mpfr_get_si(value.m_Value, MPFR_Value.RoundingMode);
-        public static implicit operator uint(MPFR_Value value) => mpfr_lib.mpfr_get_ui(value.m_Value, MPFR_Value.RoundingMode);
-        public static implicit operator float(MPFR_Value value) => mpfr_lib.mpfr_get_flt(value.m_Value, MPFR_Value.RoundingMode);
-        public static implicit operator double(MPFR_Value value) => mpfr_lib.mpfr_get_d(value.m_Value, MPFR_Value.RoundingMode);
-        public static implicit operator decimal(MPFR_Value value) => System.Convert.ToDecimal(value.ToString());
-        public static implicit operator string(MPFR_Value value) => value.ToString();
+        public static implicit operator bool(MPFR obj) => obj.BoolValue;
+        public static implicit operator int(MPFR value) => mpfr_lib.mpfr_get_si(value.m_Value, MPFR.RoundingMode);
+        public static implicit operator uint(MPFR value) => mpfr_lib.mpfr_get_ui(value.m_Value, MPFR.RoundingMode);
+        public static implicit operator float(MPFR value) => mpfr_lib.mpfr_get_flt(value.m_Value, MPFR.RoundingMode);
+        public static implicit operator double(MPFR value) => mpfr_lib.mpfr_get_d(value.m_Value, MPFR.RoundingMode);
+        public static implicit operator decimal(MPFR value) => System.Convert.ToDecimal(value.ToString());
+        public static implicit operator string(MPFR value) => value.ToString();
         #endregion
 
         #region IConvertible

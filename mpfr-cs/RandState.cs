@@ -4,16 +4,16 @@ using System.Security.Cryptography;
 
 namespace Math.Gmp.Native
 {
-    public sealed class GMP_RandState : IDisposable
+    public sealed class RandState : IDisposable
     {
         public gmp_randstate_t Value { get; private set; } = new gmp_randstate_t();
         public mpz_t Seed { get; private set; } = new mpz_t();
         private bool m_IsDisposed = false;
 
-        public static implicit operator GMP_RandState(int value) => new GMP_RandState(value);
-        public static implicit operator GMP_RandState(uint value) => new GMP_RandState(value);
-        public static implicit operator GMP_RandState(double value) => new GMP_RandState(value);
-        public static implicit operator GMP_RandState(string value) => new GMP_RandState(value);
+        public static implicit operator RandState(int value) => new RandState(value);
+        public static implicit operator RandState(uint value) => new RandState(value);
+        public static implicit operator RandState(double value) => new RandState(value);
+        public static implicit operator RandState(string value) => new RandState(value);
 
         public override string ToString()
         {
@@ -26,21 +26,21 @@ namespace Math.Gmp.Native
             return result;
         }
 
-        public GMP_RandState(GMP_RandState other) : this(other.Value) { }
+        public RandState(RandState other) : this(other.Value) { }
 
-        public GMP_RandState(gmp_randstate_t value)
+        public RandState(gmp_randstate_t value)
         {
             gmp_lib.gmp_randinit_set(Value, value);
         }
 
-        public GMP_RandState(mpz_t value)
+        public RandState(mpz_t value)
         {
             gmp_lib.gmp_randinit_default(Value);
             gmp_lib.mpz_init_set(Seed, value);
             gmp_lib.gmp_randseed(Value, Seed);
         }
 
-        public GMP_RandState(int value)
+        public RandState(int value)
         {
             gmp_lib.gmp_randinit_default(Value);
 
@@ -48,7 +48,7 @@ namespace Math.Gmp.Native
             gmp_lib.gmp_randseed(Value, Seed);
         }
 
-        public GMP_RandState(uint value)
+        public RandState(uint value)
         {
             gmp_lib.gmp_randinit_default(Value);
 
@@ -56,7 +56,7 @@ namespace Math.Gmp.Native
             gmp_lib.gmp_randseed(Value, Seed);
         }
 
-        public GMP_RandState(double value)
+        public RandState(double value)
         {
             gmp_lib.gmp_randinit_default(Value);
 
@@ -64,7 +64,7 @@ namespace Math.Gmp.Native
             gmp_lib.gmp_randseed(Value, Seed);
         }
 
-        public GMP_RandState(string value)
+        public RandState(string value)
         {
             gmp_lib.gmp_randinit_default(Value);
             using(SHA256 sha = SHA256.Create())
@@ -100,7 +100,7 @@ namespace Math.Gmp.Native
             m_IsDisposed = true;
         }
 
-        ~GMP_RandState()
+        ~RandState()
         {
             Dispose(false);
         }

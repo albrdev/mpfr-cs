@@ -49,13 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GMP_RandState.cs" />
-    <Compile Include="MPFR_Value.Arithmetics.cs" />
-    <Compile Include="MPFR_Value.Comparisons.cs" />
-    <Compile Include="MPFR_Value.Conversions.cs" />
-    <Compile Include="MPFR_Value.cs" />
-    <Compile Include="MPFR_Value.Math.cs" />
-    <Compile Include="MPFR_Value.Random.cs" />
+    <Compile Include="RandState.cs" />
+    <Compile Include="MPFR.Arithmetics.cs" />
+    <Compile Include="MPFR.Comparisons.cs" />
+    <Compile Include="MPFR.Conversions.cs" />
+    <Compile Include="MPFR.cs" />
+    <Compile Include="MPFR.Math.cs" />
+    <Compile Include="MPFR.Random.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
