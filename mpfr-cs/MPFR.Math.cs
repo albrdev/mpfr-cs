@@ -179,6 +179,13 @@ namespace Math.Mpfr.Native
             return result;
         }
 
+        public static MPFR Sec(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_sec(result.m_Value, value.m_Value, MPFR.RoundingMode);
+            return result;
+        }
+
         public static MPFR Asin(MPFR value)
         {
             MPFR result = new MPFR();
@@ -200,6 +207,27 @@ namespace Math.Mpfr.Native
             return result;
         }
 
+        public static MPFR Atan2(MPFR y, MPFR x)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_atan2(result.m_Value, y.m_Value, x.m_Value, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Asec(MPFR value)
+        {
+            MPFR result = new MPFR();
+
+            mpfr_t tmpValue = new mpfr_t();
+            mpfr_lib.mpfr_init(tmpValue);
+
+            mpfr_lib.mpfr_si_div(tmpValue, 1, value.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_acos(result.m_Value, tmpValue, MPFR.RoundingMode);
+
+            mpfr_lib.mpfr_clear(tmpValue);
+            return result;
+        }
+
         public static MPFR Sinh(MPFR value)
         {
             MPFR result = new MPFR();
@@ -218,6 +246,13 @@ namespace Math.Mpfr.Native
         {
             MPFR result = new MPFR();
             mpfr_lib.mpfr_tanh(result.m_Value, value.m_Value, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Sech(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_sech(result.m_Value, value.m_Value, MPFR.RoundingMode);
             return result;
         }
 
