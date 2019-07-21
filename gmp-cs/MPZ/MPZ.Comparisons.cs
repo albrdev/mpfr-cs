@@ -5,7 +5,7 @@ namespace Math.Gmp.Native
     public sealed partial class MPZ : IComparable, IComparable<MPZ>, IEquatable<MPZ>
     {
         #region IEquatable
-        private static bool EqualsHelper(MPZ a, MPZ b) => gmp_lib.mpz_cmp(a.m_Value, b.m_Value) == 0;
+        private static bool EqualsHelper(MPZ a, MPZ b) => gmp_lib.mpz_cmp(a.Value, b.Value) == 0;
 
         public static bool Equals(MPZ a, MPZ b)
         {
@@ -40,13 +40,13 @@ namespace Math.Gmp.Native
             return MPZ.EqualsHelper(this, (MPZ)obj);
         }
 
-        public override int GetHashCode() => m_Value.GetHashCode();
+        public override int GetHashCode() => Value.GetHashCode();
         #endregion
 
         #region IComparable
         public int CompareTo(MPZ other)
         {
-            return CompareTo(other.m_Value);
+            return CompareTo(other.Value);
         }
 
         public int CompareTo(mpz_t obj)
@@ -54,22 +54,22 @@ namespace Math.Gmp.Native
             if(obj is null)
                 throw new System.ArgumentNullException();
 
-            return gmp_lib.mpz_cmp(m_Value, obj);
+            return gmp_lib.mpz_cmp(Value, obj);
         }
 
         public int CompareTo(double obj)
         {
-            return gmp_lib.mpz_cmp_d(m_Value, obj);
+            return gmp_lib.mpz_cmp_d(Value, obj);
         }
 
         public int CompareTo(int obj)
         {
-            return gmp_lib.mpz_cmp_si(m_Value, obj);
+            return gmp_lib.mpz_cmp_si(Value, obj);
         }
 
         public int CompareTo(uint obj)
         {
-            return gmp_lib.mpz_cmp_ui(m_Value, obj);
+            return gmp_lib.mpz_cmp_ui(Value, obj);
         }
 
         public int CompareTo(object obj)

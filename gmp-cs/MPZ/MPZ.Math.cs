@@ -7,14 +7,14 @@ namespace Math.Gmp.Native
         public static MPZ Abs(MPZ value)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_abs(result.m_Value, value.m_Value);
+            gmp_lib.mpz_abs(result.Value, value.Value);
             return result;
         }
 
         public static MPZ Neg(MPZ value)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_neg(result.m_Value, value.m_Value);
+            gmp_lib.mpz_neg(result.Value, value.Value);
             return result;
         }
 
@@ -63,28 +63,28 @@ namespace Math.Gmp.Native
         public static MPZ Pow(MPZ a, MPZ b)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_pow_ui(result.m_Value, a.m_Value, b);
+            gmp_lib.mpz_pow_ui(result.Value, a.Value, b);
             return result;
         }
 
         public static MPZ Sqr(MPZ value)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_pow_ui(result.m_Value, value.m_Value, 2U);
+            gmp_lib.mpz_pow_ui(result.Value, value.Value, 2U);
             return result;
         }
 
         public static MPZ Cb(MPZ value)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_pow_ui(result.m_Value, value.m_Value, 3U);
+            gmp_lib.mpz_pow_ui(result.Value, value.Value, 3U);
             return result;
         }
 
         public static MPZ Sqrt(MPZ value)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_sqrt(result.m_Value, value.m_Value);
+            gmp_lib.mpz_sqrt(result.Value, value.Value);
             return result;
         }
     }

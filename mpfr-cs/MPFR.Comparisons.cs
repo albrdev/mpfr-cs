@@ -5,7 +5,7 @@ namespace Math.Mpfr.Native
     public sealed partial class MPFR : IComparable, IComparable<MPFR>, IEquatable<MPFR>
     {
         #region IEquatable
-        private static bool EqualsHelper(MPFR a, MPFR b) => mpfr_lib.mpfr_cmp(a.m_Value, b.m_Value) == 0;
+        private static bool EqualsHelper(MPFR a, MPFR b) => mpfr_lib.mpfr_cmp(a.Value, b.Value) == 0;
 
         public static bool Equals(MPFR a, MPFR b)
         {
@@ -40,13 +40,13 @@ namespace Math.Mpfr.Native
             return MPFR.EqualsHelper(this, (MPFR)obj);
         }
 
-        public override int GetHashCode() => m_Value.GetHashCode();
+        public override int GetHashCode() => Value.GetHashCode();
         #endregion
 
         #region IComparable
         public int CompareTo(MPFR other)
         {
-            return CompareTo(other.m_Value);
+            return CompareTo(other.Value);
         }
 
         public int CompareTo(mpfr_t obj)
@@ -54,22 +54,22 @@ namespace Math.Mpfr.Native
             if(obj is null)
                 throw new System.ArgumentNullException();
 
-            return mpfr_lib.mpfr_cmp(m_Value, obj);
+            return mpfr_lib.mpfr_cmp(Value, obj);
         }
 
         public int CompareTo(double obj)
         {
-            return mpfr_lib.mpfr_cmp_d(m_Value, obj);
+            return mpfr_lib.mpfr_cmp_d(Value, obj);
         }
 
         public int CompareTo(int obj)
         {
-            return mpfr_lib.mpfr_cmp_si(m_Value, obj);
+            return mpfr_lib.mpfr_cmp_si(Value, obj);
         }
 
         public int CompareTo(uint obj)
         {
-            return mpfr_lib.mpfr_cmp_ui(m_Value, obj);
+            return mpfr_lib.mpfr_cmp_ui(Value, obj);
         }
 
         public int CompareTo(object obj)

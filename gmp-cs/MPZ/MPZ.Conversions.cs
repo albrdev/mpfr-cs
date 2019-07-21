@@ -16,15 +16,15 @@ namespace Math.Gmp.Native
         public static implicit operator mpz_t(MPZ value)
         {
             mpz_t result = new mpz_t();
-            gmp_lib.mpz_init_set(result, value.m_Value);
+            gmp_lib.mpz_init_set(result, value.Value);
             return result;
         }
 
         public static implicit operator bool(MPZ obj) => obj.BoolValue;
-        public static implicit operator int(MPZ value) => gmp_lib.mpz_get_si(value.m_Value);
-        public static implicit operator uint(MPZ value) => gmp_lib.mpz_get_ui(value.m_Value);
-        public static implicit operator float(MPZ value) => (float)gmp_lib.mpz_get_d(value.m_Value);
-        public static implicit operator double(MPZ value) => gmp_lib.mpz_get_d(value.m_Value);
+        public static implicit operator int(MPZ value) => gmp_lib.mpz_get_si(value.Value);
+        public static implicit operator uint(MPZ value) => gmp_lib.mpz_get_ui(value.Value);
+        public static implicit operator float(MPZ value) => (float)gmp_lib.mpz_get_d(value.Value);
+        public static implicit operator double(MPZ value) => gmp_lib.mpz_get_d(value.Value);
         public static implicit operator decimal(MPZ value) => System.Convert.ToDecimal(value.ToString());
         public static implicit operator string(MPZ value) => value.ToString();
         #endregion

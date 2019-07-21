@@ -7,7 +7,7 @@ namespace Math.Mpfr.Native
     {
         private static int m_OutputPrecision = -1;
 
-        private readonly mpfr_t m_Value = new mpfr_t();
+        internal mpfr_t Value { get; set; } = new mpfr_t();
         private bool m_IsDisposed = false;
 
         public static mpfr_prec_t MinPrecision { get { return mpfr_lib.MPFR_PREC_MIN; } }
@@ -31,8 +31,8 @@ namespace Math.Mpfr.Native
 
         public mpfr_prec_t Precision
         {
-            get => m_Value._mpfr_prec;
-            set => mpfr_lib.mpfr_set_prec_raw(m_Value, value);
+            get => Value._mpfr_prec;
+            set => mpfr_lib.mpfr_set_prec_raw(Value, value);
         }
 
         public static MPFR Zero { get; } = new MPFR(0);
@@ -47,11 +47,11 @@ namespace Math.Mpfr.Native
         public static MPFR Catalan { get; } = MPFR_Catalan(MPFR.DefaultPrecision);
         public static MPFR LN2 { get; } = MPFR_LN2(MPFR.DefaultPrecision);
 
-        private bool BoolValue { get => mpfr_lib.mpfr_regular_p(m_Value) != 0 || mpfr_lib.mpfr_inf_p(m_Value) != 0; }
+        private bool BoolValue { get => mpfr_lib.mpfr_regular_p(Value) != 0 || mpfr_lib.mpfr_inf_p(Value) != 0; }
 
-        public bool IsNegative => mpfr_lib.mpfr_sgn(m_Value) < 0;
-        public bool IsPositive => mpfr_lib.mpfr_sgn(m_Value) > 0;
-        public bool IsInfinity => mpfr_lib.mpfr_inf_p(m_Value) != 0;
+        public bool IsNegative => mpfr_lib.mpfr_sgn(Value) < 0;
+        public bool IsPositive => mpfr_lib.mpfr_sgn(Value) > 0;
+        public bool IsInfinity => mpfr_lib.mpfr_inf_p(Value) != 0;
         public bool IsNegativeInfinity => IsInfinity && IsNegative;
         public bool IsPositiveInfinity => IsInfinity && IsPositive;
 
@@ -59,7 +59,7 @@ namespace Math.Mpfr.Native
         {
             ptr<char_ptr> buffer = new ptr<char_ptr>();
 
-            mpfr_lib.mpfr_asprintf(buffer, "%.*R*g", outputPrecision, roundingMode, m_Value);
+            mpfr_lib.mpfr_asprintf(buffer, "%.*R*g", outputPrecision, roundingMode, Value);
             string result = buffer.Value.ToString();
 
             gmp_lib.free(buffer.Value);
@@ -74,95 +74,116 @@ namespace Math.Mpfr.Native
         public static MPFR MPFR_Pi(mpfr_prec_t precision)
         {
             MPFR result = new MPFR(precision);
-            mpfr_lib.mpfr_const_pi(result.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_const_pi(result.Value, MPFR.RoundingMode);
             return result;
         }
 
         public static MPFR MPFR_Euler(mpfr_prec_t precision)
         {
             MPFR result = new MPFR(precision);
-            mpfr_lib.mpfr_const_euler(result.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_const_euler(result.Value, MPFR.RoundingMode);
             return result;
         }
 
         public static MPFR MPFR_Catalan(mpfr_prec_t precision)
         {
             MPFR result = new MPFR(precision);
-            mpfr_lib.mpfr_const_catalan(result.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_const_catalan(result.Value, MPFR.RoundingMode);
             return result;
         }
 
         public static MPFR MPFR_LN2(mpfr_prec_t precision)
         {
             MPFR result = new MPFR(precision);
-            mpfr_lib.mpfr_const_log2(result.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_const_log2(result.Value, MPFR.RoundingMode);
             return result;
         }
 
-        public MPFR(MPFR other) : this(other.m_Value) { }
+        public MPFR()
+        {
+            mpfr_lib.mpfr_init(Value);
+        }
+
+        public MPFR(mpfr_prec_t precision)
+        {
+            mpfr_lib.mpfr_init2(Value, precision);
+        }
+
+        internal MPFR(bool initialize)
+        {
+            if(initialize)
+                mpfr_lib.mpfr_init(Value);
+        }
+
+        public MPFR(MPFR other) : this(other.Value) { }
 
         public MPFR(mpfr_t value) : this(value._mpfr_prec, value) { }
 
         public MPFR(mpfr_prec_t precision, mpfr_t value)
         {
-            mpfr_lib.mpfr_init2(m_Value, precision);
-            mpfr_lib.mpfr_set(m_Value, value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init2(Value, precision);
+            mpfr_lib.mpfr_set(Value, value, MPFR.RoundingMode);
         }
 
         public MPFR(int value)
         {
-            mpfr_lib.mpfr_init_set_si(m_Value, value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init_set_si(Value, value, MPFR.RoundingMode);
         }
 
         public MPFR(mpfr_prec_t precision, int value)
         {
-            mpfr_lib.mpfr_init2(m_Value, precision);
-            mpfr_lib.mpfr_set_si(m_Value, value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init2(Value, precision);
+            mpfr_lib.mpfr_set_si(Value, value, MPFR.RoundingMode);
         }
 
         public MPFR(uint value)
         {
-            mpfr_lib.mpfr_init_set_ui(m_Value, value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init_set_ui(Value, value, MPFR.RoundingMode);
         }
 
         public MPFR(mpfr_prec_t precision, uint value)
         {
-            mpfr_lib.mpfr_init2(m_Value, precision);
-            mpfr_lib.mpfr_set_ui(m_Value, value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init2(Value, precision);
+            mpfr_lib.mpfr_set_ui(Value, value, MPFR.RoundingMode);
         }
 
         public MPFR(double value)
         {
-            mpfr_lib.mpfr_init_set_d(m_Value, value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init_set_d(Value, value, MPFR.RoundingMode);
         }
 
         public MPFR(mpfr_prec_t precision, double value)
         {
-            mpfr_lib.mpfr_init2(m_Value, precision);
-            mpfr_lib.mpfr_set_d(m_Value, value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init2(Value, precision);
+            mpfr_lib.mpfr_set_d(Value, value, MPFR.RoundingMode);
         }
 
         public MPFR(string value, int radix = 10)
         {
-            mpfr_lib.mpfr_init_set_str(m_Value, value, radix, MPFR.RoundingMode);
+            mpfr_lib.mpfr_init_set_str(Value, value, radix, MPFR.RoundingMode);
         }
 
         public MPFR(mpfr_prec_t precision, string value, int radix = 10)
         {
-            mpfr_lib.mpfr_init2(m_Value, precision);
+            mpfr_lib.mpfr_init2(Value, precision);
             char_ptr tmp = new char_ptr(value);
-            mpfr_lib.mpfr_set_str(m_Value, tmp, radix, MPFR.RoundingMode);
+            mpfr_lib.mpfr_set_str(Value, tmp, radix, MPFR.RoundingMode);
             gmp_lib.free(tmp);
         }
 
-        public MPFR(mpfr_prec_t precision)
+        public MPFR(MPZ value) : this(value.Value) { }
+
+        public MPFR(mpfr_prec_t precision, MPZ value) : this(precision, value.Value) { }
+
+        public MPFR(mpz_t value)
         {
-            mpfr_lib.mpfr_init2(m_Value, precision);
+            mpfr_lib.mpfr_init_set_z(Value, value, MPFR.RoundingMode);
         }
 
-        public MPFR()
+        public MPFR(mpfr_prec_t precision, mpz_t value)
         {
-            mpfr_lib.mpfr_init(m_Value);
+            mpfr_lib.mpfr_init2(Value, precision);
+            mpfr_lib.mpfr_set_z(Value, value, MPFR.RoundingMode);
         }
 
         public void Dispose()
@@ -176,7 +197,7 @@ namespace Math.Mpfr.Native
             if(m_IsDisposed)
                 return;
 
-            mpfr_lib.mpfr_clear(m_Value);
+            mpfr_lib.mpfr_clear(Value);
             m_IsDisposed = true;
         }
 

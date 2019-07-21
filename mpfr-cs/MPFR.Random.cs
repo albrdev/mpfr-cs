@@ -9,9 +9,9 @@ namespace Math.Mpfr.Native
             MPFR result = new MPFR();
 
             if(inclusive)
-                mpfr_lib.mpfr_urandom(result.m_Value, MPFR.RandomState.Value, roundingMode);
+                mpfr_lib.mpfr_urandom(result.Value, MPFR.RandomState.Value, roundingMode);
             else
-                mpfr_lib.mpfr_urandomb(result.m_Value, MPFR.RandomState.Value);
+                mpfr_lib.mpfr_urandomb(result.Value, MPFR.RandomState.Value);
 
             return result;
         }
@@ -26,11 +26,11 @@ namespace Math.Mpfr.Native
             MPFR result = new MPFR();
 
             if(inclusive)
-                mpfr_lib.mpfr_urandom(result.m_Value, MPFR.RandomState.Value, roundingMode);
+                mpfr_lib.mpfr_urandom(result.Value, MPFR.RandomState.Value, roundingMode);
             else
-                mpfr_lib.mpfr_urandomb(result.m_Value, MPFR.RandomState.Value);
+                mpfr_lib.mpfr_urandomb(result.Value, MPFR.RandomState.Value);
 
-            mpfr_lib.mpfr_mul(result.m_Value, result.m_Value, max.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_mul(result.Value, result.Value, max.Value, MPFR.RoundingMode);
             return result;
         }
 
@@ -46,14 +46,14 @@ namespace Math.Mpfr.Native
             mpfr_lib.mpfr_init(tmp);
 
             if(inclusive)
-                mpfr_lib.mpfr_urandom(result.m_Value, MPFR.RandomState.Value, roundingMode);
+                mpfr_lib.mpfr_urandom(result.Value, MPFR.RandomState.Value, roundingMode);
             else
-                mpfr_lib.mpfr_urandomb(result.m_Value, MPFR.RandomState.Value);
+                mpfr_lib.mpfr_urandomb(result.Value, MPFR.RandomState.Value);
 
-            mpfr_lib.mpfr_sub(tmp, max.m_Value, min.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_sub(tmp, max.Value, min.Value, MPFR.RoundingMode);
 
-            mpfr_lib.mpfr_mul(result.m_Value, result.m_Value, tmp, MPFR.RoundingMode);
-            mpfr_lib.mpfr_add(result.m_Value, result.m_Value, min.m_Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_mul(result.Value, result.Value, tmp, MPFR.RoundingMode);
+            mpfr_lib.mpfr_add(result.Value, result.Value, min.Value, MPFR.RoundingMode);
 
             mpfr_lib.mpfr_clear(tmp);
             return result;
