@@ -74,25 +74,18 @@ namespace Math.Gmp.Native
         public static MPZ operator >>(MPZ lhs, int rhs)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_fdiv_q_2exp(result.Value, lhs.Value, (mp_bitcnt_t)rhs);
+            gmp_lib.mpz_tdiv_q_2exp(result.Value, lhs.Value, (mp_bitcnt_t)rhs);
             return result;
         }
 
         public static MPZ LeftShift(MPZ lhs, MPZ rhs)
         {
-            return lhs << gmp_lib.mpz_get_si(rhs.Value);
+            return lhs << rhs;
         }
 
         public static MPZ RightShift(MPZ lhs, MPZ rhs)
         {
-            return lhs >> gmp_lib.mpz_get_si(rhs.Value);
-        }
-
-        public static MPZ RightShift2(MPZ lhs, MPZ rhs)
-        {
-            MPZ result = new MPZ();
-            gmp_lib.mpz_tdiv_q_2exp(result.Value, lhs.Value, (mp_bitcnt_t)gmp_lib.mpz_get_si(rhs.Value));
-            return result;
+            return lhs >> rhs;
         }
         #endregion
 
