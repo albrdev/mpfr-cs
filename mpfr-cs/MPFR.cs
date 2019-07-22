@@ -109,12 +109,6 @@ namespace Math.Mpfr.Native
             mpfr_lib.mpfr_init2(Value, precision);
         }
 
-        internal MPFR(bool initialize)
-        {
-            if(initialize)
-                mpfr_lib.mpfr_init(Value);
-        }
-
         public MPFR(MPFR other) : this(other.Value) { }
 
         public MPFR(mpfr_t value) : this(value._mpfr_prec, value) { }

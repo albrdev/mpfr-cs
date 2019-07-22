@@ -18,7 +18,7 @@ namespace Math.Mpfr.Native
         #region From MPFR_Value
         public static implicit operator MPZ(MPFR value)
         {
-            MPZ result = new MPZ(false);
+            MPZ result = new MPZ();
             mpfr_lib.mpfr_get_z(result.Value, value.Value, MPFR.RoundingMode);
             return result;
         }
@@ -26,6 +26,7 @@ namespace Math.Mpfr.Native
         public static implicit operator mpz_t(MPFR value)
         {
             mpz_t result = new mpz_t();
+            gmp_lib.mpz_init(result);
             mpfr_lib.mpfr_get_z(result, value.Value, MPFR.RoundingMode);
             return result;
         }

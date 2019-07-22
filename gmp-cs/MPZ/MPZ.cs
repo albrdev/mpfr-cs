@@ -38,12 +38,6 @@ namespace Math.Gmp.Native
             gmp_lib.mpz_init2(Value, precision);
         }
 
-        internal MPZ(bool initialize)
-        {
-            if(initialize)
-                gmp_lib.mpz_init(Value);
-        }
-
         public MPZ(MPZ other) : this(other.Value) { }
 
         public MPZ(mpz_t value)
