@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MPZ\MPZ.Random.cs" />
     <Compile Include="MPZ\MPZ.Arithmetics.cs" />
     <Compile Include="MPZ\MPZ.Comparisons.cs" />
     <Compile Include="MPZ\MPZ.Conversions.cs" />
