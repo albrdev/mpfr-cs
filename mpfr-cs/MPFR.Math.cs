@@ -33,53 +33,6 @@ namespace Math.Mpfr.Native
             return Neg(value);
         }
 
-        public static MPFR Min(params MPFR[] values)
-        {
-            if(values.Length == 0)
-                return new MPFR(MPFR.NaN);
-
-            MPFR result = values[0];
-            for(int i = 1; i < values.Length; i++)
-            {
-                if(values[i] < result)
-                {
-                    result = values[i];
-                }
-            }
-
-            return new MPFR(result);
-        }
-
-        public static MPFR Max(params MPFR[] values)
-        {
-            if(values.Length == 0)
-                return new MPFR(MPFR.NaN);
-
-            MPFR result = values[0];
-            for(int i = 1; i < values.Length; i++)
-            {
-                if(values[i] > result)
-                {
-                    result = values[i];
-                }
-            }
-
-            return new MPFR(result);
-        }
-
-        public static MPFR Mean(params MPFR[] values)
-        {
-            MPFR result = new MPFR(0);
-
-            foreach(var value in values)
-            {
-                mpfr_lib.mpfr_add(result.Value, result.Value, value.Value, MPFR.RoundingMode);
-            }
-
-            mpfr_lib.mpfr_div_si(result.Value, result.Value, values.Length, MPFR.RoundingMode);
-            return result;
-        }
-
         public static MPFR Pow(MPFR a, MPFR b)
         {
             MPFR result = new MPFR();
@@ -98,6 +51,27 @@ namespace Math.Mpfr.Native
         {
             MPFR result = new MPFR();
             mpfr_lib.mpfr_pow_ui(result.Value, value.Value, 3U, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Exp(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_exp(result.Value, value.Value, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Exp2(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_exp2(result.Value, value.Value, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Exp10(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_exp10(result.Value, value.Value, MPFR.RoundingMode);
             return result;
         }
 
@@ -129,6 +103,22 @@ namespace Math.Mpfr.Native
             return result;
         }
 
+        public static MPFR LogN(MPFR x, MPFR n)
+        {
+            MPFR result = new MPFR();
+
+            mpfr_t tmpX = new mpfr_t();
+            mpfr_t tmpN = new mpfr_t();
+            mpfr_lib.mpfr_inits(tmpX, tmpN);
+
+            mpfr_lib.mpfr_log(tmpX, x.Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_log(tmpN, n.Value, MPFR.RoundingMode);
+            mpfr_lib.mpfr_div(result.Value, x, n, MPFR.RoundingMode);
+
+            mpfr_lib.mpfr_clears(tmpX, tmpN);
+            return result;
+        }
+
         public static MPFR Log(MPFR value)
         {
             MPFR result = new MPFR();
@@ -147,22 +137,6 @@ namespace Math.Mpfr.Native
         {
             MPFR result = new MPFR();
             mpfr_lib.mpfr_log10(result.Value, value.Value, MPFR.RoundingMode);
-            return result;
-        }
-
-        public static MPFR NthLog(MPFR a, MPFR b)
-        {
-            MPFR result = new MPFR();
-
-            mpfr_t tmpValue1 = new mpfr_t();
-            mpfr_t tmpValue2 = new mpfr_t();
-            mpfr_lib.mpfr_inits(tmpValue1, tmpValue2);
-
-            mpfr_lib.mpfr_log(tmpValue1, a.Value, MPFR.RoundingMode);
-            mpfr_lib.mpfr_log(tmpValue2, b.Value, MPFR.RoundingMode);
-            mpfr_lib.mpfr_div(result.Value, a, b, MPFR.RoundingMode);
-
-            mpfr_lib.mpfr_clears(tmpValue1, tmpValue2);
             return result;
         }
 
@@ -187,10 +161,24 @@ namespace Math.Mpfr.Native
             return result;
         }
 
+        public static MPFR Cot(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_cot(result.Value, value.Value, MPFR.RoundingMode);
+            return result;
+        }
+
         public static MPFR Sec(MPFR value)
         {
             MPFR result = new MPFR();
             mpfr_lib.mpfr_sec(result.Value, value.Value, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Csc(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_csc(result.Value, value.Value, MPFR.RoundingMode);
             return result;
         }
 
@@ -257,10 +245,24 @@ namespace Math.Mpfr.Native
             return result;
         }
 
+        public static MPFR Coth(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_coth(result.Value, value.Value, MPFR.RoundingMode);
+            return result;
+        }
+
         public static MPFR Sech(MPFR value)
         {
             MPFR result = new MPFR();
             mpfr_lib.mpfr_sech(result.Value, value.Value, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Csch(MPFR value)
+        {
+            MPFR result = new MPFR();
+            mpfr_lib.mpfr_csch(result.Value, value.Value, MPFR.RoundingMode);
             return result;
         }
 
@@ -282,6 +284,53 @@ namespace Math.Mpfr.Native
         {
             MPFR result = new MPFR();
             mpfr_lib.mpfr_atanh(result.Value, value.Value, MPFR.RoundingMode);
+            return result;
+        }
+
+        public static MPFR Min(params MPFR[] values)
+        {
+            if(values.Length == 0)
+                return new MPFR(MPFR.NaN);
+
+            MPFR result = values[0];
+            for(int i = 1; i < values.Length; i++)
+            {
+                if(values[i] < result)
+                {
+                    result = values[i];
+                }
+            }
+
+            return new MPFR(result);
+        }
+
+        public static MPFR Max(params MPFR[] values)
+        {
+            if(values.Length == 0)
+                return new MPFR(MPFR.NaN);
+
+            MPFR result = values[0];
+            for(int i = 1; i < values.Length; i++)
+            {
+                if(values[i] > result)
+                {
+                    result = values[i];
+                }
+            }
+
+            return new MPFR(result);
+        }
+
+        public static MPFR Mean(params MPFR[] values)
+        {
+            MPFR result = new MPFR(0);
+
+            foreach(var value in values)
+            {
+                mpfr_lib.mpfr_add(result.Value, result.Value, value.Value, MPFR.RoundingMode);
+            }
+
+            mpfr_lib.mpfr_div_si(result.Value, result.Value, values.Length, MPFR.RoundingMode);
             return result;
         }
     }
