@@ -41,10 +41,10 @@ namespace Math.Gmp.Native
         }
 
 
-        public static MPZ BRandom(MPZ max)
+        public static MPZ BRandom(MPZ count)
         {
             MPZ result = new MPZ();
-            gmp_lib.mpz_urandomb(result.Value, MPZ.RandomState.Value, (mp_bitcnt_t)(ulong)max);
+            gmp_lib.mpz_urandomb(result.Value, MPZ.RandomState.Value, (mp_bitcnt_t)(ulong)count);
             return result;
         }
     }
