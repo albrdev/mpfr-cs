@@ -27,7 +27,7 @@ namespace Math.Mpfr.Native
             set => m_OutputPrecision = value;
         }
 
-        public static RandState RandomState { get; set; } = new RandState(Environment.TickCount);
+        public static RandState RandomState { get; set; } = null;
 
         public mpfr_prec_t Precision
         {

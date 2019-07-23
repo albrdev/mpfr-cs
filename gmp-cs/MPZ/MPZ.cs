@@ -9,6 +9,8 @@ namespace Math.Gmp.Native
 
         public static int OutputBase { get; set; } = 10;
 
+        public static RandState RandomState { get; set; } = null;
+
         public static MPZ Zero { get; } = new MPZ(0);
         public static MPZ NegativeOne { get; } = new MPZ(-1);
         public static MPZ PositiveOne { get; } = new MPZ(1);
