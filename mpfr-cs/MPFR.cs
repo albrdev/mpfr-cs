@@ -57,26 +57,13 @@ namespace Math.Mpfr.Native
         public bool IsNegativeInfinity => IsInfinity && IsNegative;
         public bool IsPositiveInfinity => IsInfinity && IsPositive;
 
-        public string ToString(mpfr_rnd_t roundingMode, int outputPrecision, int radix)
+        public string ToString(mpfr_rnd_t roundingMode, int outputPrecision, int radix = 10)
         {
-            char radixFormatSpecifier;
-            switch(radix)
-            {
-                case 10:
-                    radixFormatSpecifier = 'g';
-                    break;
-                case 2:
-                    radixFormatSpecifier = 'b';
-                    break;
-                case 16:
-                    radixFormatSpecifier = 'a';
-                    break;
-                default:
-                    return ToBaseString(roundingMode, outputPrecision, radix);
-            }
+            if(radix != 10)
+                return ToBaseString(roundingMode, outputPrecision, radix);
 
             ptr<char_ptr> buffer = new ptr<char_ptr>();
-            mpfr_lib.mpfr_asprintf(buffer, $"%.*R*{radixFormatSpecifier}", outputPrecision, roundingMode, Value);
+            mpfr_lib.mpfr_asprintf(buffer, $"%.*R*g", outputPrecision, roundingMode, Value);
             string result = buffer.Value.ToString();
 
             gmp_lib.free(buffer.Value);
