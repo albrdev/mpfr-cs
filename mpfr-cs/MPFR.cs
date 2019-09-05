@@ -57,17 +57,21 @@ namespace Math.Mpfr.Native
 
         public string ToString2(mpfr_rnd_t roundingMode, uint outputPrecision = 0, int radix = 10)
         {
-            if(mpfr_lib.mpfr_zero_p(Value) != 0)
+            /*if(mpfr_lib.mpfr_zero_p(Value) != 0)
                 return "0";
             else if(mpfr_lib.mpfr_inf_p(Value) != 0)
-                return IsNegative ? "-Inf" : "Inf";
+                return IsNegative ? "-inf" : "inf";
             else if(mpfr_lib.mpfr_nan_p(Value) != 0)
-                return "NaN";
+                return "nan";*/
 
             mpfr_exp_t exp = 0;
             var res = mpfr_lib.mpfr_get_str(char_ptr.Zero, ref exp, radix, outputPrecision, Value, roundingMode);
             string result = res.ToString();
             gmp_lib.free(res);
+
+            if(mpfr_lib.mpfr_inf_p(Value) != 0 || mpfr_lib.mpfr_nan_p(Value) != 0)
+                return result;
+
             if(exp > 0)
             {
                 if(exp > result.Length)
