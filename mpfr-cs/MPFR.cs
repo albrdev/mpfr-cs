@@ -88,7 +88,7 @@ namespace Math.Mpfr.Native
         {
             ptr<char_ptr> buffer = new ptr<char_ptr>();
 
-            mpfr_lib.mpfr_asprintf(buffer, "%R*g", /*outputPrecision, */roundingMode, Value);
+            mpfr_lib.mpfr_asprintf(buffer, "%.*R*g", outputPrecision, roundingMode, Value);
             string result = buffer.Value.ToString();
 
             gmp_lib.free(buffer.Value);
