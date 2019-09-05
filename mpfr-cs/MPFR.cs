@@ -27,6 +27,8 @@ namespace Math.Mpfr.Native
             set => m_OutputPrecision = value;
         }
 
+        public static int OutputBase { get; set; } = 10;
+
         public static RandState RandomState { get; set; } = null;
 
         public mpfr_prec_t Precision
@@ -55,17 +57,41 @@ namespace Math.Mpfr.Native
         public bool IsNegativeInfinity => IsInfinity && IsNegative;
         public bool IsPositiveInfinity => IsInfinity && IsPositive;
 
-        public string ToString2(mpfr_rnd_t roundingMode, uint outputPrecision = 0, int radix = 10)
+        public string ToString(mpfr_rnd_t roundingMode, int outputPrecision, int radix)
         {
-            /*if(mpfr_lib.mpfr_zero_p(Value) != 0)
-                return "0";
-            else if(mpfr_lib.mpfr_inf_p(Value) != 0)
-                return IsNegative ? "-inf" : "inf";
-            else if(mpfr_lib.mpfr_nan_p(Value) != 0)
-                return "nan";*/
+            char radixFormatSpecifier;
+            switch(radix)
+            {
+                case 10:
+                    radixFormatSpecifier = 'g';
+                    break;
+                case 2:
+                    radixFormatSpecifier = 'b';
+                    break;
+                case 16:
+                    radixFormatSpecifier = 'a';
+                    break;
+                default:
+                    return ToBaseString(roundingMode, outputPrecision, radix);
+            }
 
+            ptr<char_ptr> buffer = new ptr<char_ptr>();
+            mpfr_lib.mpfr_asprintf(buffer, $"%.*R*{radixFormatSpecifier}", outputPrecision, roundingMode, Value);
+            string result = buffer.Value.ToString();
+
+            gmp_lib.free(buffer.Value);
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return ToString(MPFR.RoundingMode, MPFR.OutputPrecision, MPFR.OutputBase);
+        }
+
+        public string ToBaseString(mpfr_rnd_t roundingMode, int outputPrecision = 0, int radix = 10)
+        {
             mpfr_exp_t exp = 0;
-            var res = mpfr_lib.mpfr_get_str(char_ptr.Zero, ref exp, radix, outputPrecision, Value, roundingMode);
+            var res = mpfr_lib.mpfr_get_str(char_ptr.Zero, ref exp, radix, (size_t)outputPrecision, Value, roundingMode);
             string result = res.ToString();
             gmp_lib.free(res);
 
@@ -86,22 +112,6 @@ namespace Math.Mpfr.Native
                 result = result.Insert(IsNegative ? 2 : 1, ".");
             }
             return result.TrimEnd('0').TrimEnd('.');
-        }
-
-        public string ToString(mpfr_rnd_t roundingMode, int outputPrecision)
-        {
-            ptr<char_ptr> buffer = new ptr<char_ptr>();
-
-            mpfr_lib.mpfr_asprintf(buffer, "%.*R*g", outputPrecision, roundingMode, Value);
-            string result = buffer.Value.ToString();
-
-            gmp_lib.free(buffer.Value);
-            return result;
-        }
-
-        public override string ToString()
-        {
-            return ToString(MPFR.RoundingMode, MPFR.OutputPrecision);
         }
 
         public static MPFR MPFR_Pi(mpfr_prec_t precision)
