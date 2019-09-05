@@ -55,6 +55,35 @@ namespace Math.Mpfr.Native
         public bool IsNegativeInfinity => IsInfinity && IsNegative;
         public bool IsPositiveInfinity => IsInfinity && IsPositive;
 
+        public string ToString2(mpfr_rnd_t roundingMode, uint outputPrecision = 0, int radix = 10)
+        {
+            if(mpfr_lib.mpfr_zero_p(Value) != 0)
+                return "0";
+            else if(mpfr_lib.mpfr_inf_p(Value) != 0)
+                return IsNegative ? "-Inf" : "Inf";
+            else if(mpfr_lib.mpfr_nan_p(Value) != 0)
+                return "NaN";
+
+            mpfr_exp_t exp = 0;
+            var res = mpfr_lib.mpfr_get_str(char_ptr.Zero, ref exp, radix, outputPrecision, Value, roundingMode);
+            string result = res.ToString();
+            gmp_lib.free(res);
+            if(exp > 0)
+            {
+                if(exp > result.Length)
+                {
+                    result += new string('0', exp - result.Length);
+                }
+                result = result.Insert(IsNegative ? exp + 1 : (int)exp, ".");
+            }
+            else
+            {
+                result = result.Insert(IsNegative ? 1 : 0, new string('0', System.Math.Abs(exp) + 1));
+                result = result.Insert(IsNegative ? 2 : 1, ".");
+            }
+            return result.TrimEnd('0').TrimEnd('.');
+        }
+
         public string ToString(mpfr_rnd_t roundingMode, int outputPrecision)
         {
             ptr<char_ptr> buffer = new ptr<char_ptr>();
